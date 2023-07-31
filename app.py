@@ -37,42 +37,9 @@ def collect_messages(prompt, messages=None):
     return formatted_response, messages
 
 
-# Function to run the Streamlit app
-def run_app():
-    st.title("Open AI API Pricing Cost Calculator")
-    st.markdown(
-        """
-        Hello! I’m your OpenAI API Pricing Calculator. Just enter your usage
-        in dollars and the number of API calls you made or received for that
-        amount, and I will tell you the exact cost per prompt of your AI
-        tool in both dollars and rupees!
-    """
-    )
-
     # Include the content of index.html using streamlit's html component
     with open("index.html", "r") as file:
         st.components.v1.html(file.read())
-
-    # Add your Streamlit app code here
-    # For example, you can use st.sidebar to take input from the user
-    # and st.write to display the output to the user.
-    usage_dollars = st.sidebar.number_input(
-        "Enter Usage in Dollars", min_value=0.0, step=0.01
-    )
-    num_requests = st.sidebar.number_input(
-        "Enter Number of Requests", min_value=0, step=1
-    )
-
-    if st.sidebar.button("Calculate"):
-        user_input = (
-            f"Usage in Dollars: {usage_dollars}, No. of Requests: {num_requests}"
-        )
-        response, context = collect_messages(user_input, context)
-
-        st.write("Per Prompt Cost is:")
-        st.write(f"USD: ${response[0]}")
-        st.write(f"INR: ₹{response[1]}")
-
 
 if __name__ == "__main__":
     context = [
