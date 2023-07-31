@@ -2,6 +2,7 @@ Flask
 OpenAI
 
 aiohttp==3.8.4.post0
+multidict-6.0.4.post0
 
 
 py -m pip install -r requirements.txt
