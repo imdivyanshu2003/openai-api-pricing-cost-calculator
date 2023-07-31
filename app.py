@@ -77,10 +77,6 @@ Make sure your conversation is in a friendly manner and you are not rude to the 
         }
     ]
 
-    # Start Streamlit server with configured port
-    port = int(os.environ.get("PORT", 8000))
-    st.set_option("server.port", port)
-
     # Run the Streamlit app
     st.run()
 
