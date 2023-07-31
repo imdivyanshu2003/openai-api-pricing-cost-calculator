@@ -1,12 +1,9 @@
 import os
 import openai
 import streamlit as st
-from flask import Flask, render_template, request
 from dotenv import load_dotenv
 
 load_dotenv("env/.env")
-
-app = Flask(__name__)
 
 # Load your OpenAI API key from .env file
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -39,20 +36,33 @@ def collect_messages(prompt, messages=None):
     return formatted_response, messages
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+# Function to run the Streamlit app
+def run_app():
+    st.title("Open AI API Pricing Cost Calculator")
+    st.markdown("""
+        Hello! I’m your OpenAI API Pricing Calculator. Just enter your usage
+        in dollars and the number of API calls you made or received for that
+        amount, and I will tell you the exact cost per prompt of your AI
+        tool in both dollars and rupees!
+    """)
 
+    # Include the content of index.html using streamlit's html component
+    with open("index.html", "r") as file:
+        st.components.v1.html(file.read())
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    global context
-    usage_dollars = request.form["usage_dollars"]
-    num_requests = request.form["num_requests"]
+    # Add your Streamlit app code here
+    # For example, you can use st.sidebar to take input from the user
+    # and st.write to display the output to the user.
+    usage_dollars = st.sidebar.number_input("Enter Usage in Dollars", min_value=0.0, step=0.01)
+    num_requests = st.sidebar.number_input("Enter Number of Requests", min_value=0, step=1)
 
-    user_input = f"Usage in Dollars: {usage_dollars}, No. of Requests: {num_requests}"
-    response, context = collect_messages(user_input, context)
-    return "\n".join(response)
+    if st.sidebar.button("Calculate"):
+        user_input = f"Usage in Dollars: {usage_dollars}, No. of Requests: {num_requests}"
+        response, context = collect_messages(user_input, context)
+
+        st.write("Per Prompt Cost is:")
+        st.write(f"USD: ${response[0]}")
+        st.write(f"INR: ₹{response[1]}")
 
 
 if __name__ == "__main__":
@@ -70,7 +80,7 @@ Ensure not to give any explanation and give your output like this:
 Per Prompt Cost is:
 USD: $ 
 INR: ₹ \
-Ensure to give the per prompt or request cost in INR and USD correct & accurate based on the calculation above and it should be upto four decimal points only. \
+Ensure to give the per prompt or request cost in INR and USD correct & accurate based on the calculation above and it should be up to four decimal points only. \
 Make sure the output is in the same format as above and the results should be accurate. \
 Make sure your conversation is in a friendly manner and you are not rude to the user. \
 """,
@@ -78,6 +88,6 @@ Make sure your conversation is in a friendly manner and you are not rude to the 
     ]
 
     # Run the Streamlit app
-    st.run()
+    run_app()
 
     # Note: The Flask app will not run in this mode as Streamlit handles the server.
