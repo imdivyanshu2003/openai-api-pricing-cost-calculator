@@ -1,5 +1,5 @@
 Flask
-openai-0.27.8.dist-info
+OpenAI
 
 
 py -m pip install -r requirements.txt
