@@ -79,5 +79,5 @@ Make sure your conversation is in a friendly manner and you are not rude to the 
 
     app.run(debug=False, host="0.0.0.0")
 
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 8000))
     st.set_option("server.port", port)
