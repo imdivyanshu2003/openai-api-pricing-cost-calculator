@@ -1,5 +1,6 @@
 import os
 import openai
+import streamlit as st
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
 load_dotenv("env/.env")
@@ -76,3 +77,4 @@ Make sure your conversation is in a friendly manner and you are not rude to the 
     ]
 
     app.run(debug=False,host='0.0.0.0')
+    streamlit run app.py --server.port 8000
