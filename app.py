@@ -41,9 +41,6 @@ def collect_messages(prompt, messages=None):
 def index():
     return render_template("index.html")
 
-# Define a global variable called context
-context = {}
-
 @app.route("/chat", methods=["POST"])
 def chat():
     # Use the global keyword to access the global variable
