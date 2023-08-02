@@ -44,23 +44,24 @@ def index():
 
 
 @app.route("/chat", methods=["POST"])
-def chat():
-    # Use the global keyword to access the global variable
+def chat_post():
     global context
-    user_input = request.form["user_input"]
-    response, context = collect_messages(user_input, context)
-    return response
+    print(request.form)  # this will print the form data in the terminal
+    user_input = request.form.get("user_input", "")
+    usage_dollars = request.form.get("usage_dollars", "")
+    num_requests = request.form.get("num_requests", "")
 
-
-@app.route("/chat", methods=["POST"])
-def chat():
-    global context
-    usage_dollars = request.form["usage_dollars"]
-    num_requests = request.form["num_requests"]
-
-    user_input = f"Usage in Dollars: {usage_dollars}, No. of Requests: {num_requests}"
-    response, context = collect_messages(user_input, context)
-    return "\n".join(response)
+    if user_input:
+        response, context = collect_messages(user_input, context)
+        return response
+    elif usage_dollars and num_requests:
+        user_input = (
+            f"Usage in Dollars: {usage_dollars}, No. of Requests: {num_requests}"
+        )
+        response, context = collect_messages(user_input, context)
+        return "\n".join(response)
+    else:
+        return "Invalid input"
 
 
 if __name__ == "__main__":
