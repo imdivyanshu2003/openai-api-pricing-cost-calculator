@@ -50,7 +50,7 @@ def index():
 @app.route("/chat", methods=["POST"])
 def chat_post():
     global context
-    print(request.form)  # this will print the form data in the terminal
+    # print(request.form)  # this will print the form data in the terminal
     user_input = request.form.get("user_input", "")
     usage_dollars = request.form.get("usage_dollars", "")
     num_requests = request.form.get("num_requests", "")
