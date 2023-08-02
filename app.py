@@ -2,6 +2,7 @@ import os
 import openai
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+
 load_dotenv("env/.env")
 
 app = Flask(__name__)
@@ -40,6 +41,7 @@ def collect_messages(prompt, messages=None):
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -83,4 +85,4 @@ Make sure your conversation is in a friendly manner and you are not rude to the 
         }
     ]
 
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host="0.0.0.0")
