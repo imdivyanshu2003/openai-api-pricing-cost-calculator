@@ -29,6 +29,7 @@ def format_content_ideas(content):
 
 
 def collect_messages(prompt, messages=None):
+    global context
     if messages is None:
         messages = []
     response, messages = get_completion(prompt, messages=messages)
