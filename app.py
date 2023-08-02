@@ -1,5 +1,3 @@
-context = []
-
 import os
 import openai
 from flask import Flask, render_template, request
@@ -39,6 +37,9 @@ def collect_messages(prompt, messages=None):
     formatted_response = format_content_ideas(response)
     messages.append({"role": "assistant", "content": response})
     return formatted_response, messages
+
+
+context = []
 
 
 @app.route("/")
