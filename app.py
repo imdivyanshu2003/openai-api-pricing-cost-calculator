@@ -2,7 +2,6 @@ import os
 import openai
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
-
 load_dotenv("env/.env")
 
 app = Flask(__name__)
